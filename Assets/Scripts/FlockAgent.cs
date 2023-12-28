@@ -18,6 +18,6 @@ public class FlockAgent : MonoBehaviour
     public void Move(Vector2 destination)
     {
         transform.up = destination;
-        transform.position += (Vector3) destination * Time.deltaTime;
+        transform.position += (Vector3)destination * Time.deltaTime;
     }
 }

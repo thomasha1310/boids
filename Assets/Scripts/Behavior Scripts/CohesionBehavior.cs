@@ -15,11 +15,11 @@ public class CohesionBehavior : FlockBehavior
         Vector2 cohesionMove = Vector2.zero;
         foreach (Transform item in context)
         {
-            cohesionMove += (Vector2) item.position;
+            cohesionMove += (Vector2)item.position;
         }
         cohesionMove /= context.Count;
 
-        cohesionMove -= (Vector2) agent.transform.position;
+        cohesionMove -= (Vector2)agent.transform.position;
 
         return cohesionMove;
     }

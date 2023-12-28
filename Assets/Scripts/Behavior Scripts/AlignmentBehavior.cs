@@ -15,7 +15,7 @@ public class AlignmentBehavior : FlockBehavior
         Vector2 alignmentMove = Vector2.zero;
         foreach (Transform item in context)
         {
-            alignmentMove += (Vector2) item.transform.up;
+            alignmentMove += (Vector2)item.transform.up;
         }
         alignmentMove /= context.Count;
 
