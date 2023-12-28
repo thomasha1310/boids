@@ -30,7 +30,7 @@ public class CompositeBehavior : FlockBehavior
                     partialMove *= weights[i];
                 }
 
-                move += partialMove
+                move += partialMove;
             }
         }
 
