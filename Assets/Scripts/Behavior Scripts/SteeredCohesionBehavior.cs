@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Flock/Behavior/Steered Cohesion")]
+[CreateAssetMenu(menuName = "Flock/Behavior/SteeredCohesion")]
 public class SteeredCohesionBehavior : FlockBehavior
 {
 
