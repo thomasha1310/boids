@@ -15,7 +15,7 @@ public class Flock : MonoBehaviour
     [Range(1f, 100f)]
     public float driveFactor = 10f;
     [Range(1f, 100f)]
-    public float maximumSpeed = 5f;
+    public float maxSpeed = 5f;
     [Range(1f, 10f)]
     public float detectionRadius = 1.5f;
     [Range(0f, 1f)]
@@ -29,7 +29,7 @@ public class Flock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        squareMaxSpeed = maximumSpeed * maximumSpeed;
+        squareMaxSpeed = maxSpeed * maxSpeed;
         squareDetectionRadius = detectionRadius * detectionRadius;
         squareAvoidanceRadius = squareDetectionRadius * avoidanceRadiusMultiplier * avoidanceRadiusMultiplier;
 
@@ -52,6 +52,13 @@ public class Flock : MonoBehaviour
         foreach (FlockAgent agent in agents)
         {
             List<Transform> context = GetNearbyObjects(agent);
+            Vector2 destination = behavior.CalculateMove(agent, context, this);
+            destination *= driveFactor;
+            if (destination.sqrMagnitude > squareMaxSpeed)
+            {
+                destination = destination.normalized * maxSpeed;
+            }
+            agent.Move(destination);
         }
     }
 
