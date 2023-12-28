@@ -49,6 +49,23 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        foreach (FlockAgent agent in agents)
+        {
+            List<Transform> context = GetNearbyObjects(agent);
+        }
+    }
+
+    List<Transform> GetNearbyObjects(FlockAgent agent)
+    {
+        List<Transform> context = new List<Transform>();
+        Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position, detectionRadius);
+        foreach (Collider2D c in contextColliders)
+        {
+            if (c != agent.AgentCollider)
+            {
+                context.Add(c.transform);
+            }
+        }
+        return context;
     }
 }
