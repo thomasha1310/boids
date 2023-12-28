@@ -49,25 +49,25 @@ public class CompositeBehaviorEditor : Editor
             {
                 EditorUtility.SetDirty(compositeBehavior);
             }
+        }
 
-            EditorGUILayout.EndHorizontal();
-            r.x = 5f;
-            r.width = EditorGUIUtility.currentViewWidth - 10f;
-            r.y += EditorGUIUtility.singleLineHeight * 0.5f;
-            if (GUI.Button(r, "Add Behavior"))
+        EditorGUILayout.EndHorizontal();
+        r.x = 5f;
+        r.width = EditorGUIUtility.currentViewWidth - 10f;
+        r.y += EditorGUIUtility.singleLineHeight * 0.5f;
+        if (GUI.Button(r, "Add Behavior"))
+        {
+            AddBehavior(compositeBehavior);
+            EditorUtility.SetDirty(compositeBehavior);
+        }
+
+        r.y += EditorGUIUtility.singleLineHeight * 1.5f;
+        if (compositeBehavior.behaviors != null && compositeBehavior.behaviors.Length > 0)
+        {
+            if (GUI.Button(r, "Remove Behavior"))
             {
-                AddBehavior(compositeBehavior);
+                RemoveBehavior(compositeBehavior);
                 EditorUtility.SetDirty(compositeBehavior);
-            }
-
-            r.y += EditorGUIUtility.singleLineHeight * 1.5f;
-            if (compositeBehavior.behaviors != null && compositeBehavior.behaviors.Length > 0)
-            {
-                if (GUI.Button(r, "Remove Behavior"))
-                {
-                    RemoveBehavior(compositeBehavior);
-                    EditorUtility.SetDirty(compositeBehavior);
-                }
             }
         }
     }
