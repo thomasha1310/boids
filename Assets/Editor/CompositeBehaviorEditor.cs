@@ -31,6 +31,7 @@ public class CompositeBehaviorEditor : Editor
             EditorGUI.LabelField(r, "Weights");
             r.y += EditorGUIUtility.singleLineHeight + 1.2f;
 
+            EditorGUI.BeginChangeCheck();
             for (int i = 0; i < compositeBehavior.behaviors.Length; i++)
             {
                 r.x = 5f;
@@ -44,6 +45,10 @@ public class CompositeBehaviorEditor : Editor
                 compositeBehavior.weights[i] = EditorGUI.FloatField(r, compositeBehavior.weights[i]);
                 r.y += EditorGUIUtility.singleLineHeight * 1.1f;
             }
+            if (EditorGUI.EndChangeCheck())
+            {
+                EditorUtility.SetDirty(compositeBehavior);
+            }
 
             EditorGUILayout.EndHorizontal();
             r.x = 5f;
@@ -52,6 +57,7 @@ public class CompositeBehaviorEditor : Editor
             if (GUI.Button(r, "Add Behavior"))
             {
                 AddBehavior(compositeBehavior);
+                EditorUtility.SetDirty(compositeBehavior);
             }
 
             r.y += EditorGUIUtility.singleLineHeight * 1.5f;
@@ -60,11 +66,10 @@ public class CompositeBehaviorEditor : Editor
                 if (GUI.Button(r, "Remove Behavior"))
                 {
                     RemoveBehavior(compositeBehavior);
+                    EditorUtility.SetDirty(compositeBehavior);
                 }
             }
         }
-
-
     }
 
     void AddBehavior(CompositeBehavior cb)
