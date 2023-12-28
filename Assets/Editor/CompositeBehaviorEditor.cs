@@ -8,66 +8,46 @@ public class CompositeBehaviorEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        // Set up inspector
-        CompositeBehavior compositeBehavior = (CompositeBehavior)target;
-        Rect r = EditorGUILayout.BeginHorizontal();
-        r.height = EditorGUIUtility.singleLineHeight;
+        //setup
+        CompositeBehavior cb = (CompositeBehavior)target;
 
-        // Check for null or empty behavior array
-        if (compositeBehavior.behaviors == null || compositeBehavior.behaviors.Length == 0)
+        //check for behaviors
+        if (cb.behaviors == null || cb.behaviors.Length == 0)
         {
-            EditorGUILayout.HelpBox("No behaviors in composite behavior.", MessageType.Warning);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.HelpBox("No behaviors in array.", MessageType.Warning);
             EditorGUILayout.EndHorizontal();
-            r = EditorGUILayout.BeginHorizontal();
-            r.height = EditorGUIUtility.singleLineHeight;
         }
         else
         {
-            r.x = 30f;
-            r.width = EditorGUIUtility.currentViewWidth - 95f;
-            EditorGUI.LabelField(r, "Behaviors");
-            r.x = EditorGUIUtility.currentViewWidth - 65f;
-            r.width = 60;
-            EditorGUI.LabelField(r, "Weights");
-            r.y += EditorGUIUtility.singleLineHeight + 1.2f;
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Number", GUILayout.MinWidth(60f), GUILayout.MaxWidth(60f));
+            EditorGUILayout.LabelField("Behaviors", GUILayout.MinWidth(60f));
+            EditorGUILayout.LabelField("Weights", GUILayout.MinWidth(60f), GUILayout.MaxWidth(60f));
+            EditorGUILayout.EndHorizontal();
 
-            EditorGUI.BeginChangeCheck();
-            for (int i = 0; i < compositeBehavior.behaviors.Length; i++)
+            for (int i = 0; i < cb.behaviors.Length; i++)
             {
-                r.x = 5f;
-                r.width = 20f;
-                EditorGUI.LabelField(r, (i + 1).ToString());
-                r.x = 30f;
-                r.width = EditorGUIUtility.currentViewWidth - 95f;
-                compositeBehavior.behaviors[i] = (FlockBehavior)EditorGUI.ObjectField(r, compositeBehavior.behaviors[i], typeof(FlockBehavior), false);
-                r.x = EditorGUIUtility.currentViewWidth - 65f;
-                r.width = 60;
-                compositeBehavior.weights[i] = EditorGUI.FloatField(r, compositeBehavior.weights[i]);
-                r.y += EditorGUIUtility.singleLineHeight * 1.1f;
-            }
-            if (EditorGUI.EndChangeCheck())
-            {
-                EditorUtility.SetDirty(compositeBehavior);
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField((i + 1).ToString(), GUILayout.MinWidth(60f), GUILayout.MaxWidth(60f));
+                cb.behaviors[i] = (FlockBehavior)EditorGUILayout.ObjectField(cb.behaviors[i], typeof(FlockBehavior), false, GUILayout.MinWidth(60f));
+                cb.weights[i] = EditorGUILayout.FloatField(cb.weights[i], GUILayout.MinWidth(60f), GUILayout.MaxWidth(60f));
+                EditorGUILayout.EndHorizontal();
             }
         }
 
-        EditorGUILayout.EndHorizontal();
-        r.x = 5f;
-        r.width = EditorGUIUtility.currentViewWidth - 10f;
-        r.y += EditorGUIUtility.singleLineHeight * 0.5f;
-        if (GUI.Button(r, "Add Behavior"))
+        if (GUILayout.Button("Add Behavior"))
         {
-            AddBehavior(compositeBehavior);
-            EditorUtility.SetDirty(compositeBehavior);
+            AddBehavior(cb);
+            EditorUtility.SetDirty(cb);
         }
 
-        r.y += EditorGUIUtility.singleLineHeight * 1.5f;
-        if (compositeBehavior.behaviors != null && compositeBehavior.behaviors.Length > 0)
+        if (cb.behaviors != null && cb.behaviors.Length > 0)
         {
-            if (GUI.Button(r, "Remove Behavior"))
+            if (GUILayout.Button("Remove Behavior"))
             {
-                RemoveBehavior(compositeBehavior);
-                EditorUtility.SetDirty(compositeBehavior);
+                RemoveBehavior(cb);
+                EditorUtility.SetDirty(cb);
             }
         }
     }
