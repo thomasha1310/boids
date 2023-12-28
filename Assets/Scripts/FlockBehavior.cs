@@ -2,17 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlockBehavior : MonoBehaviour
+public abstract class FlockBehavior : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public abstract Vector2 CalculateMove(FlockAgent agent, List<Transform> context, Flock flock);
 }
