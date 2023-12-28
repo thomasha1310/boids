@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour
 {
-    public FlockAgent agentPrefab;
-    List<FlockAgent> agents = new List<FlockAgent>();
-    public FlockBehavior behavior;
+    [SerializeField] private FlockAgent agentPrefab;
+    private List<FlockAgent> agents = new List<FlockAgent>();
+    [SerializeField] private FlockBehavior behavior;
 
     [Range(10, 500)]
     public int startingCount = 250;
